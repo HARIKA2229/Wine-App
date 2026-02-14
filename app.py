@@ -1,7 +1,8 @@
 import streamlit as st
 import numpy as np
 import pickle
-
+import os
+import base64
 # ----------------------------------
 # Page config
 # ----------------------------------
@@ -10,6 +11,27 @@ st.set_page_config(
     page_icon="🍷",
     layout="centered"
 )
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# ✅ Add your background image here
+add_bg_from_local("one.jpg")  
+
 
 st.title("🍷 Wine Quality Prediction")
 st.write("Enter the wine chemical properties to predict quality.")
@@ -61,5 +83,6 @@ if st.button("Predict Wine Quality"):
 
     # Predict
     prediction = model.predict(scaled_input)
+
 
     st.success(f"🍷 Predicted Wine Quality: **{int(prediction[0])}**")
