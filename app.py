@@ -30,7 +30,8 @@ def add_bg_from_local(image_file):
     )
 
 # ✅ Add your background image here
-add_bg_from_local("one.jpg")  
+add_bg_from_local("house.png")  
+
 
 
 st.title("🍷 Wine Quality Prediction")
@@ -86,3 +87,4 @@ if st.button("Predict Wine Quality"):
 
 
     st.success(f"🍷 Predicted Wine Quality: **{int(prediction[0])}**")
+
